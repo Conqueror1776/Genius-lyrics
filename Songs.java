@@ -8,11 +8,15 @@ import org.jsoup.Connection;
 
 class Songs {
 
+  // Number of songs parsed through
   Double song_count;
 
+  // Songs that contain their title in the lyrics
   Double contain_count;
 
+  // The percentage of songs that contain their title in their lyrics
   Double percentage;
+  
   /*
   * Empty Constructor
   */
