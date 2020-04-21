@@ -16,7 +16,7 @@ class Songs {
 
   // The percentage of songs that contain their title in their lyrics
   Double percentage;
-  
+
   /*
   * Empty Constructor
   */
@@ -31,15 +31,12 @@ class Songs {
   */
   public double getPercent(String url) {
     try {
-      // Create a new Lyrics Comparer Object
-      Lyrics comparer = new Lyrics();
       // Create a document and fetch the website
       Document doc = Jsoup.connect(url).get();
 
       // Find all elements "a", some of which are Songs
       Elements songs = doc.select("a");
       for (Element song : songs) {
-
         //Check if the current element is a song
         if (this.checkElement(song)) {
           this.song_count+= 1;
@@ -57,10 +54,15 @@ class Songs {
       } catch (IOException e) {
       e.printStackTrace();
       }
-      return 0.0;
+      // An error has occured, so return -1.
+      return -1.;
   }
 
+  /*
+  * Checks if the input is a song element
+  */
   public boolean checkElement(Element thing) {
+    // Check if the class name is the one that is designated to songs on Genius.com
     String attribute = thing.attr("class");
     if (attribute.equals("PageGriddesktop-a6v82w-0 ChartItemdesktop__Row-sc-3bmioe-0 qsIlk")) {
       return true;
@@ -68,6 +70,10 @@ class Songs {
     return false;
   }
 
+  /*
+  * Checks if the title of the song is contained somewhere in the
+  * lyrics of the song
+  */
   public boolean contains(Element song) {
     // Create a new Lyrics Comparer Object
     Lyrics comparer = new Lyrics();
@@ -75,6 +81,7 @@ class Songs {
     String title = song.getElementsByClass("ChartSongdesktop__Title-sc-18658hh-3 fODYHn").text();
     String lyrics_url = song.attr("href");
     title = title.toLowerCase();
+
     // If the title is contained in the lyrics, return true;
     if (comparer.contains(lyrics_url, title)) {
       return true;
