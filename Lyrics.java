@@ -9,10 +9,11 @@ import org.jsoup.Connection;
 class Lyrics {
 
   public Lyrics(){
-    null;
+
   }
 
   public boolean contains(String url, String title) {
+    /*
     String lyrics = this.getLyrics(url);
     for (int i = 0; i < lyrics.length() - title.length(); i++) {
       if (title.equals(lyrics.substring(i,title.length()))) {
@@ -20,20 +21,26 @@ class Lyrics {
       }
     }
     return false;
+    */
+    return true;
   }
 
   public String getLyrics(String url) {
-    try {
+    /*try {
       Document doc = Jsoup.connect(url).get();
       Elements
 
     } catch (IOException e) {
       e.printStackTrace();
     }
+    */
+    return "";
   }
 
   public static void main(String args[]) {
+    /*
     Songs stuff = new Songs();
     System.out.println(stuff.getLyrics("https://genius.com/Drake-toosie-slide-lyrics"));
+    */
   }
 }
