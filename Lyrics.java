@@ -12,22 +12,29 @@ class Lyrics {
       // Here we create a document object and use JSoup to fetch the website
       Document doc = Jsoup.connect("https://genius.com/#top-songs").get();
 
-      // With the document fetched, we use JSoup's title() method to fetch the title
-      System.out.printf("Title: %s\n", doc.title());
-
+      // Find all elements "a" (some are songs)
       Elements songs = doc.select("a");
       for (Element song : songs) {
-        String attribute=song.attr("class");
+        // Check if the current element is a song
+        String attribute = song.attr("class");
         if(attribute.equalsIgnoreCase("PageGriddesktop-a6v82w-0 ChartItemdesktop__Row-sc-3bmioe-0 qsIlk")){
+          // Get the title and url to the lyrics for that song
           String title = song.getElementsByClass("ChartSongdesktop__Title-sc-18658hh-3 fODYHn").text();
           String lyrics_url = song.attr("href");
-          System.out.println(title + " "+ lyrics_url);
+          title = title.toLowerCase();
+          // Fetch the website of the lyrics of the song
+          Document lyric_page = Jsoup.connect(lyrics_url).get();
+          System.out.println(title + " " + lyric_page.title());
         }
       }
-      Connection.Response execute = Jsoup.connect("https://genius.com/#top-songs")
-        .header("Content-Type", "application/json")
-        .execute();
+
     // In case of any IO errors, we want the messages written to the console
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    try {
+      Document doc2 = Jsoup.connect("https://genius.com/Drake-toosie-slide-lyrics").get();
+      System.out.println(doc2.title());
     } catch (IOException e) {
       e.printStackTrace();
     }
