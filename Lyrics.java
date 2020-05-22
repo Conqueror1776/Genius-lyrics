@@ -30,6 +30,7 @@ class Lyrics {
       Document doc = Jsoup.connect(url).get();
       Elements lyrics = doc.select("div.lyrics");
       result = lyrics.text();
+      result.replace('\n', ' ');
     } catch (IOException e) {
       e.printStackTrace();
     }
