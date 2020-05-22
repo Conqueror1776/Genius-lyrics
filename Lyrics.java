@@ -13,34 +13,26 @@ class Lyrics {
   }
 
   public boolean contains(String url, String title) {
-    /*
-    String lyrics = this.getLyrics(url);
-    for (int i = 0; i < lyrics.length() - title.length(); i++) {
-      if (title.equals(lyrics.substring(i,title.length()))) {
-        return true;
-      }
+    // Get the lyrics of the song
+    String lyrics = this.getLyrics(url).toLowerCase();
+    // Check if the title can be found in the lyrics
+    if (lyrics.contains(title)) {
+      System.out.println(title+ ": "+ lyrics.contains(title));
+      return true;
     }
+    System.out.println(title+ ": "+ lyrics.contains(title));
     return false;
-    */
-    return true;
   }
 
   public String getLyrics(String url) {
-    /*try {
+    String result = "";
+    try {
       Document doc = Jsoup.connect(url).get();
-      Elements
-
+      Elements lyrics = doc.select("div.lyrics");
+      result = lyrics.text();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    */
-    return "";
-  }
-
-  public static void main(String args[]) {
-    /*
-    Songs stuff = new Songs();
-    System.out.println(stuff.getLyrics("https://genius.com/Drake-toosie-slide-lyrics"));
-    */
+    return result;
   }
 }
